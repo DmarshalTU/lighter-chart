@@ -1,0 +1,16 @@
+apiVersion: v1
+name: lighter
+version: 0.0.1
+description: lighter k8s helm chart
+type: application
+keywords:
+  - spark
+  - lighter
+home: https://github.com/DmarshalTU/lighter-chart.git
+sources:
+  - https://github.com/exacaster/lighter/blob/master/docs/kubernetes.md
+maintainers:
+  - name: Denis Tu
+    email: dmarshaltu@gmail.com
+    url: https://github.com/DmarshalTU
+appVersion: 0.0.41

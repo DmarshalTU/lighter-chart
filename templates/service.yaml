@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: lighter
+    namespace: spark
+    labels:
+        run: lighter
+spec:
+    ports:
+        -   name: api
+            port: 8080
+            protocol: TCP
+        -   name: javagw
+            port: 25333
+            protocol: TCP
+    selector:
+        run: lighter

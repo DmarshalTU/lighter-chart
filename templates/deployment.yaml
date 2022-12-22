@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    namespace: spark
+    name: lighter
+spec:
+    selector:
+        matchLabels:
+            run: lighter
+    replicas: 1
+    strategy:
+        rollingUpdate:
+            maxUnavailable: 0
+            maxSurge: 1
+    template:
+        metadata:
+            labels:
+                run: lighter
+        spec:
+            containers:
+                -   image: ghcr.io/exacaster/lighter:0.0.41-spark3.3.1
+                    name: lighter
+                    readinessProbe:
+                        httpGet:
+                            path: /health/readiness
+                            port: 8080
+                        initialDelaySeconds: 15
+                        periodSeconds: 15
+                    resources:
+                        requests:
+                            cpu: "0.25"
+                            memory: "512Mi"
+                    ports:
+                        -   containerPort: 8080
+                    env:
+                        -   name: LIGHTER_STORAGE_JDBC_USERNAME
+                            value: postgres_user
+                        -   name: LIGHTER_STORAGE_JDBC_PASSWORD
+                            value: postgres_password
+                        -   name: LIGHTER_STORAGE_JDBC_URL
+                            value: jdbc:postgresql://postgres_host_name:5432/lighter
+                        -   name: LIGHTER_STORAGE_JDBC_DRIVER_CLASS_NAME
+                            value: org.postgresql.Driver
+                        -   name: LIGHTER_SPARK_HISTORY_SERVER_URL
+                            value: https://address_to_spark_history/spark-history
+                        -   name: LIGHTER_MAX_RUNNING_JOBS
+                            value: "15"
+            serviceAccountName: spark
