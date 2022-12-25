@@ -9,6 +9,10 @@ keywords:
 home: https://github.com/DmarshalTU/lighter-chart.git
 sources:
   - https://github.com/exacaster/lighter/blob/master/docs/kubernetes.md
+# dependencies:
+# - name: postgresql
+#   version: "12.1.6"
+#   repository: "https://charts.bitnami.com/bitnami"
 maintainers:
   - name: Denis Tu
     email: dmarshaltu@gmail.com
