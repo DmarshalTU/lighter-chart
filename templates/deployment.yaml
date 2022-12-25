@@ -18,14 +18,14 @@ spec:
                 run: lighter
         spec:
             containers:
-                -   image: sasnouskikh/livy:0.8.0-incubating-spark_3.0.1_2.12-hadoop_3.2.0_cloud
+                -   image: dmarshaltu/lighter-arm64:0.0.1
                     name: lighter
                     readinessProbe:
                         httpGet:
                             path: /health/readiness
                             port: 8080
-                        initialDelaySeconds: 15
-                        periodSeconds: 15
+                        initialDelaySeconds: 30
+                        periodSeconds: 30
                     resources:
                         requests:
                             cpu: "0.25"
@@ -35,14 +35,6 @@ spec:
                     env:
                         -   name: LIGHTER_KUBERNETES_ENABLED
                             value: "true"
-                        # -   name: LIGHTER_STORAGE_JDBC_USERNAME
-                        #     value: postgres
-                        # -   name: LIGHTER_STORAGE_JDBC_PASSWORD
-                        #     value: JDfQeUq4Dl
-                        # -   name: LIGHTER_STORAGE_JDBC_URL
-                        #     value: jdbc:postgresql://lighter-psql-postgresql.spark.svc.cluster.local:5432/lighter
-                        # -   name: LIGHTER_STORAGE_JDBC_DRIVER_CLASS_NAME
-                        #     value: org.postgresql.Driver
                         -   name: LIGHTER_MAX_RUNNING_JOBS
-                            value: "15"
+                            value: "100"
             serviceAccountName: spark
